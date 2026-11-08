@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Credit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('home') }}">Shop Credit</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+      <a class="nav-link" href="{{ url_for('view') }}">View</a>
+      <a class="button button-primary" href="{{ url_for('add') }}">+ Add</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section class="hero-content">
+      <h1>Shop Credit</h1>
+      <p>Keep track of customers who owe you money.</p>
+      <div class="hero-actions">
+        <a class="button" href="{{ url_for('view') }}">View customers</a>
+        <a class="button button-primary" href="{{ url_for('add') }}">+ Add</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

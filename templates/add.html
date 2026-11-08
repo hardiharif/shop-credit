@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add customer · Shop Credit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('home') }}">Shop Credit</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+      <a class="nav-link" href="{{ url_for('view') }}">View</a>
+      <a class="button button-primary" href="{{ url_for('add') }}" aria-current="page">+ Add</a>
+    </nav>
+  </header>
+
+  <main class="form-shell">
+    <h1>Add customer</h1>
+    <form id="customer-form">
+      <label class="field">
+        <span>Customer name</span>
+        <input name="name" type="text" autocomplete="name" required>
+      </label>
+      <label class="field">
+        <span>Phone number</span>
+        <input name="phone" type="tel" autocomplete="tel" required>
+      </label>
+      <label class="field">
+        <span>Purchase date</span>
+        <input name="date" type="date" required>
+      </label>
+      <label class="field">
+        <span>Outstanding amount</span>
+        <input name="amount" type="number" min="0" step="0.01" required>
+      </label>
+      <button class="button button-primary" type="submit">Save</button>
+      <p class="form-message" id="form-message" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('customer-form');
+    const message = document.getElementById('form-message');
+    const dateInput = form.elements.date;
+    dateInput.value = new Date().toISOString().slice(0, 10);
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const customer = Object.fromEntries(formData.entries());
+      const customers = JSON.parse(localStorage.getItem('shopCreditCustomers') || '[]');
+      customers.push(customer);
+      localStorage.setItem('shopCreditCustomers', JSON.stringify(customers));
+      message.textContent = 'Customer saved.';
+      form.reset();
+      dateInput.value = new Date().toISOString().slice(0, 10);
+    });
+  </script>
+</body>
+</html>
